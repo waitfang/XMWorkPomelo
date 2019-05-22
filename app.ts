@@ -9,12 +9,7 @@ import {fsreadJsonFile,fsreadFileSync}  from  './routes/function/FunConfig';//�
 import {ExpressDecrorators} from './routes/class/ExpressDecrorators';
 import {UserController} from './routes/controllers/UserController';  
 import {ReadFileConfig} from './routes/class/ReadFileConfig';
-import  path from 'path';
-// fsreadJsonFile();//异步读取json配置
-// let mPromise =  ReadFileConfig.ReadFileConfig();
-// mPromise.then((data)=>{
-//     let mResourceJson = data;
-// });
+import  path from 'path'; 
   
 let mResourceJson  = fsreadFileSync();//同步读取
 
