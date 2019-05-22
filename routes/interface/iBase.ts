@@ -1,3 +1,0 @@
-interface iBase {
-    key:string;
-}
