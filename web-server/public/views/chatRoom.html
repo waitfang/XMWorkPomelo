@@ -12,11 +12,10 @@
     <meta name="version" content="1.0" />
     <meta name="keywords" content="pomelo" />
     <link type="text/css" rel="stylesheet" href="css/base.css" />
-    <script type="text/javascript" src="js/lib/socket.io.js"> </script>
-    <script type="text/javascript" src="js/lib/pomeloclient.js"> </script>
-    <script type="text/javascript" src="js/lib/jquery-2.2.2.min.js"> </script>
-    <script type="text/javascript" src="js/lib/connPomelo.js"></script>
-    <script type="text/javascript" src="js/html/index.js"></script>  
+    <script src="../js/lib/socket.io.js" > </script>
+    <script src="../js/lib/pomeloclient.js"></script>
+      <script type="text/javascript" src="../js/lib/connPomelo.js"></script>
+      <script type="text/javascript" src="../js/html/chatRoom.js"></script>  
   </head>
   <body>
     <div class="g-doc">
@@ -25,32 +24,7 @@
           <div class="img"></div>
         </div>
       </div>
-      <!--=========================================================================-->
-      <div id="pnlLogin">
-        <div class="g-background">
-          <div class="g-content">
-            Welcome to Pomelo
-          </div>
-        </div>
-        <div class="g-link">
-          Home:
-          <a href="https://github.com/NetEase/pomelo">https://github.com/NetEase/pomelo</a>
-          <input id="butshow" type="button" value="Test Game Server"/>
-        </div> 
-        <div class="g-button" >
-          <ul>
-              房间号： <input id="txtRoom" type="text" value="3001" > 
-          </ul>
-          <ul>
-            &nbsp&nbsp  账号： <input id="txtUserId" type="text" value="wait" >
-          </ul>
-          <ul>
-            <input id="butLogin" type="button" value="Login"  />
-          </ul>
-        </div>
-      </div>
-      
-      <!---============================================================================-->
+        
       <div id="pnlChat" style="display:none;">
         <h1>2.聊天室</h1>    
         用户名：<span id="spUserName" style="color:blue;padding-right:50px;"></span>
@@ -65,7 +39,6 @@
                <textarea id="txtSendMessage" type="text" style="width:690px;height:80px; overflow:auto;float:left;" ></textarea>
                <input id="btnSend" type="button" value="发送" style="margin-left:10px; height:80px; width:100px;float:left;" />
         </div>
-        
     </div>
   </body>
 </html>

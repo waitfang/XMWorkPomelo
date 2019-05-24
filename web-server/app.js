@@ -25,3 +25,6 @@ app.configure('production', function(){
 console.log("Web server has started.\nPlease log on http://127.0.0.1:3001/index.html");
 
 app.listen(3001);
+// app.listen(3001, function () {
+//   console.log("You can debug your app test with http://127.0.0.1:3001");
+// });
