@@ -10,7 +10,7 @@
             "request": "attach",
             "name": "Attach to Remote",
             "address": "127.0.0.1",
-            "port": 14968,
+            "port": 38921,
             "localRoot": "${workspaceFolder}",
             "remoteRoot": "\\game-server"
         },

@@ -22,11 +22,13 @@ handler.send = function(msg, session, next) {
     var rid = session.get('rid');
     var username = session.uid.split('*')[0];
     var channelService = this.app.get('channelService');
+    console.log("rid="+rid+"=username=" + username +"=="+channelService);
     var param = {
         route: 'onChat',
         msg: msg.content,
         from: username,
-        target: msg.target
+        target: msg.target,
+        time: msg.time
     };
     channel = channelService.getChannel(rid, false);
 

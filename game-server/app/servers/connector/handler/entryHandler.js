@@ -69,7 +69,7 @@ handler.enter = function(msg, session, next) {
 	if( !! sessionService.getByUid(uid)) {
 			next(null, {
 					code: 500,
-					error: true            
+					error: "【"+msg.username+"】"+"在【"+msg.rid+"】已存在！"            
 			});
 			return;
 	}
