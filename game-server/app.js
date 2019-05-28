@@ -31,7 +31,7 @@ app.route("chat",routeUtil.chat);
     // app.filter(pomelo.timeout());
 });
 
-// start app
+// start app 
 app.start();
 
 process.on('uncaughtException', function (err) {

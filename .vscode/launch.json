@@ -3,22 +3,16 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
-        
-        {
-            "type": "node",
-            "request": "attach",
-            "name": "Attach to Remote",
-            "address": "127.0.0.1",
-            "port": 38921,
-            "localRoot": "${workspaceFolder}",
-            "remoteRoot": "\\game-server"
-        },
+    "configurations": [ 
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}\\game-server\\app.js"
+            "name": "development",
+            "program": "${workspaceFolder}\\game-server\\app.js",
+            "args": ["env=development","type=all"],
+            "address": "127.0.0.1",
+            "port": 46312,
+
         }
     ]
 }
