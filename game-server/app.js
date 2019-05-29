@@ -1,5 +1,5 @@
 var pomelo = require('pomelo');
-var routeUtil = require("./app/util/routeUtil");
+var routeUtil = require("./app/util/routeUtil"); 
 
 /**
  * Init app for client.
@@ -28,7 +28,7 @@ app.route("chat",routeUtil.chat);
     });
 
     //过滤器，暂时先不要了
-    // app.filter(pomelo.timeout());
+    app.filter(pomelo.timeout());
 });
 
 // start app 
