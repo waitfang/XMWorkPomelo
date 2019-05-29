@@ -1,0 +1,14 @@
+{
+    "USERINFO":{
+        "USERID":"Number",
+        "USERNAME":"String",
+        "USERPASSWORD":"String",
+        "EMAIL":"String",
+        "COMPANYID":"String",
+        "COMPANYNAME":"String",
+        "CREATETIME":"Date",
+        "CREATEUSER":"String",
+        "REMARKS":"String"
+    } 
+  
+}

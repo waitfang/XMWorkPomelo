@@ -5,6 +5,8 @@ module.exports = function(app) {
 var Handler = function(app) {
   this.app = app;
 };
+ 
+var UserInfo =require("../../dao/UserInfo");
 
 /**
  * New client entry.
@@ -73,6 +75,8 @@ handler.enter = function(msg, session, next) {
 			});
 			return;
 	}
+
+	UserInfo.UserInfo({USERNAME: msg.username});//测试DB Conn
 
 	session.bind(uid);
 	session.set('rid', rid);

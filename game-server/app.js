@@ -28,7 +28,7 @@ app.route("chat",routeUtil.chat);
     });
 
     //过滤器，暂时先不要了
-    app.filter(pomelo.timeout());
+    // app.filter(pomelo.timeout());
 });
 
 // start app 
