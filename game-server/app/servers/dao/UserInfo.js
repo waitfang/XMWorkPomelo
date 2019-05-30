@@ -35,9 +35,19 @@ exp.UserInfo =function(SqlWhere){
     //     .then(exp.GetCompanyInfo1)
     //     .then(exp.GetUserInfo1) ;
 
-    Promise.all([exp.GetCompanyInfo1({}), exp.GetUserInfo1({})]).then(function (results) {
-        console.log("Promise.all results : "+results); // 获得一个Array: ['P1', 'P2']
-    });
+    // Promise.all([exp.GetCompanyInfo1({}), exp.GetUserInfo1({})]).then(function (results) {
+    //     console.log("Promise.all results : "+results); // 获得一个Array: ['P1', 'P2']
+    // });
+
+    //objPromise 实现同步，GetCompanyInfo成功后，通知then，可以查GetUserInfo 了。
+     let objPromise = new Promise(function(resolve,reject){
+        exp.GetCompanyInfo({},resolve)
+    }).then((data)=>{
+        console.log("Promise then=="+data);
+        exp.GetUserInfo({},function(data){
+            console.log("Promise GetUserInfo=="+data);
+        });
+    }); 
  
 }
     
