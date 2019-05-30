@@ -20,6 +20,10 @@
         "CREATETIME":"Date",
         "CREATEUSER":"String",
         "REMARKS":"String"
+    },
+    "//COMPANYTOUSER" :"用做关联查询，COMPANYINFO，USERINFO",
+    "COMPANYTOUSER":{
+        "COMPANYID":{"type":"String","ref":"COMPANYINFO"},
+        "_COMPANYID":{"type":"String","ref":"USERINFO"}
     } 
-  
 }

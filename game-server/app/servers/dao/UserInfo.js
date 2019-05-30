@@ -8,22 +8,67 @@ exp.UserInfo =function(SqlWhere){
         // console.log("USERINFO findOne=="+res);
     });
 
-    //查询多条数据
-    const JsonUSERINFO =   MongoDBConn.find('USERINFO',SqlWhere, {}, function (err, res) {
-        // console.log("USERINFO find=="+res);
-    });
-
-    const JsonCOMPANYINFO =  MongoDBConn.find('COMPANYINFO',{}, {}, function (err, res) {
-        // console.log("COMPANYINFO find=="+res);
-    });
- 
     //关联查询 COMPANYINFO-》USERINFO ,COMPANYID 关联字段
     SqlWhere={COMPANYID:"1"}; //查询条件
     const Table ="COMPANYINFO";
     const JoinTable = "USERINFO"; //关联table
     const fields = "COMPANYID"; //关联字段
     const sort = {USERID:1}; //-1倒序，1顺序。
-    MongoDBConn.findJoin(JoinTable,Table,SqlWhere,fields,sort, function (err, res) {
-        console.log("COMPANYINFO findJoin=="+res);
+    const ReturnData = MongoDBConn.findJoin(JoinTable,Table,SqlWhere,fields,sort, function (err, res) {
+        // console.log("COMPANYINFO findJoin=="+res);
+        // exp.GetCompanyInfo({});
+    }); 
+
+    //Promise
+    // let objPromise = new Promise(function(resolve,reject){
+    //     resolve("ok");
+    // }).then((data)=>{
+    //     console.log("Promise then=="+data);
+    //     exp.GetCompanyInfo({},function(data){
+    //         console.log("Promise GetCompanyInfo=="+data);
+    //     });
+    // }); 
+
+    // let objPromise = new Promise(function(resolve,reject){
+    //         resolve({});
+    //     })
+    //     .then(exp.GetCompanyInfo1)
+    //     .then(exp.GetUserInfo1) ;
+
+    Promise.all([exp.GetCompanyInfo1({}), exp.GetUserInfo1({})]).then(function (results) {
+        console.log("Promise.all results : "+results); // 获得一个Array: ['P1', 'P2']
+    });
+ 
+}
+    
+//查询多条数据
+exp.GetUserInfo1 = function(SqlWhere){ 
+    console.log("SqlWhere=="+SqlWhere);
+    return   MongoDBConn.find('USERINFO',SqlWhere, {}, function (err, res) {
+        console.log("USERINFO find=="+res);
+        return res;
     });
 }
+exp.GetUserInfo = function(SqlWhere,callback){ 
+    return   MongoDBConn.find('USERINFO',SqlWhere, {}, function (err, res) {
+        // console.log("USERINFO find=="+res);
+        callback(res);
+    });
+}
+
+
+exp.GetCompanyInfo1 = function(SqlWhere){ 
+    console.log("SqlWhere1=="+JSON.stringify(SqlWhere));
+    return MongoDBConn.find('COMPANYINFO',{}, {}, function (err, res) { 
+          console.log("COMPANYINFO find=="+res);
+        return res;
+    });
+}
+exp.GetCompanyInfo = function(SqlWhere,callback){ 
+    MongoDBConn.find('COMPANYINFO',{}, {}, function (err, res) {
+        // console.log("COMPANYINFO find=="+res);
+        callback(res);
+    });
+} 
+
+

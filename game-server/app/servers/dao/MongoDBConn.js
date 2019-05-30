@@ -284,6 +284,6 @@ DB.prototype.findJoin = function (table_name,table_name2, conditions, fields,fie
     .exec((err,data)=>{
         callback(null, data);
     });
-};
+}; 
  
 module.exports = new DB();
