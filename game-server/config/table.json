@@ -1,4 +1,15 @@
-{
+{ 
+    "//COMPANYINFO" :"公司table",
+    "COMPANYINFO":{
+        "COMPANYID":{
+            "type":"String",
+            "//ref USERINFO" :"需要关联的table",
+            "ref":"USERINFO"
+        },
+        "COMPANYNAME":"String"
+    },
+    
+    "//USERINFO" :"会员table",
     "USERINFO":{
         "USERID":"Number",
         "USERNAME":"String",

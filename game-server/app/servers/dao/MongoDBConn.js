@@ -267,4 +267,23 @@ DB.prototype.where = function (table_name, conditions, options, callback) {
         });
 };
  
+/**
+ * 关联查询数据
+ * @param table_name 表名
+ * @param table_name2 表名
+ * @param conditions 查询条件
+ * @param fields 关联字段
+ * @param callback 回调方法
+ */
+DB.prototype.findJoin = function (table_name,table_name2, conditions, fields,fieldssort, callback) {
+    var node_model = this.getConnection(table_name);  
+    node_model.find(conditions)
+    .populate(table_name2,fields)
+    .populate(table_name,fields)
+    .sort(fieldssort) //-1倒序，1顺序。
+    .exec((err,data)=>{
+        callback(null, data);
+    });
+};
+ 
 module.exports = new DB();
