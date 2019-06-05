@@ -23,13 +23,13 @@ handler.queryEntry = function(msg, session, next) {
     // next(null, {code: 500}); 
     var uid = msg.uid;
     console.log("uid="+ uid+ " uid="+!uid);
-    if(!uid) {
-        next(null, {
-            code: 500,
-            msg: "gate 链接成功！"
-        });
-        return;
-    }
+    // if(!uid) {
+    //     next(null, {
+    //         code: 500,
+    //         msg: "gate 链接成功！"
+    //     });
+    //     return;
+    // }
     // get all connectors 
     var connectors = this.app.getServersByType('connector');
     console.log("connectors==="+connectors + "connector="+connectors.length );

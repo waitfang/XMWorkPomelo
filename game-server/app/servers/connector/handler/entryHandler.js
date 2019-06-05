@@ -95,6 +95,8 @@ handler.enter = function(msg, session, next) {
 			});
 	});
 };
+ 
+
 
 /**
 * User log out handler

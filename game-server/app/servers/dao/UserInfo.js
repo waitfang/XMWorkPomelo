@@ -45,7 +45,7 @@ exp.UserInfo =function(SqlWhere){
     }).then((data)=>{
         console.log("Promise then=="+data);
         exp.GetUserInfo({},function(data){
-            console.log("Promise GetUserInfo=="+data);
+            // console.log("Promise GetUserInfo=="+data);
         });
     }); 
  
@@ -55,7 +55,7 @@ exp.UserInfo =function(SqlWhere){
 exp.GetUserInfo1 = function(SqlWhere){ 
     console.log("SqlWhere=="+SqlWhere);
     return   MongoDBConn.find('USERINFO',SqlWhere, {}, function (err, res) {
-        console.log("USERINFO find=="+res);
+        // console.log("USERINFO find=="+res);
         return res;
     });
 }
@@ -70,7 +70,7 @@ exp.GetUserInfo = function(SqlWhere,callback){
 exp.GetCompanyInfo1 = function(SqlWhere){ 
     console.log("SqlWhere1=="+JSON.stringify(SqlWhere));
     return MongoDBConn.find('COMPANYINFO',{}, {}, function (err, res) { 
-          console.log("COMPANYINFO find=="+res);
+        //   console.log("COMPANYINFO find=="+res);
         return res;
     });
 }

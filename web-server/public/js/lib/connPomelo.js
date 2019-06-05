@@ -3,7 +3,8 @@
   var host = "127.0.0.1";
   var port = "3010";//connector 服务器
   port = "5150"; //gate 服务器
-  
+  var params ={}; 
+
   var pomeloinit = function(params){ 
     pomelo.init({
       host: host,
@@ -16,17 +17,21 @@
     });
   } 
 
+
+
   //server 路由
   var HandlerEnum = {
     gateHandler_queryEntry : "gate.gateHandler.queryEntry",
     connector_entryHandler_enter : "connector.entryHandler.enter" ,
+    connector_onlineHandler: "connector.onlineHandler.online" ,
     chatHandler_send : "chat.chatHandler.send"
   }
 
   //Page action
   var PageAction = {
     show:"show",
-    Login:"ActionLogin"
+    Login:"ActionLogin",
+    GetOnline :"GetOnline"
   }
 
   //断开链接
@@ -61,6 +66,35 @@
     $('#pnlLogin').show();
     $('#pnlChat').hide();     
   });
+
+  
+  //链接成功，呼叫回调函数
+  var queryEntry  = function(params, callback) {   
+    pomelo.init({
+      host: host,
+      port: port,
+      log: true
+    }, function() {
+      pomelo.request(params.route, {
+        uid: params.uid
+      }, function(data) {
+        pomelo.disconnect(); 
+        if(data.code === 500) {
+          alert(data.msg);
+          return;
+        }
+        callback(data.host, data.port);
+      });
+    });
+  };
+
+
+ var GetQueryString = function(name) {
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if(r!=null)return  unescape(r[2]); return null;
+}
+
 
   var getNowFormatDate = function () {
     var date = new Date();

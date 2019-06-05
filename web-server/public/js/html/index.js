@@ -1,6 +1,5 @@
 var objtxtRoom= "#txtRoom"; //房间号
-var objtxtUserId= "#txtUserId";//人员 
-var params ={}; 
+var objtxtUserId= "#txtUserId";//人员  
 var time = getNowFormatDate();  
 
 $(function(){   
@@ -71,10 +70,11 @@ ActionLogin =function(){
                 $('#spUserName').text(params.uid); //登陆账号和房间信息
                 $('#spRoomId').text(params.rid);
  
+                window.location.href = 'views/gameRoom.html?data='+data.users
                 //加载当前聊天室 已在线用户列表 
-                $.each(data.users, function(i, item){    
-                        addUser(item,"login"+i);
-                });  
+                // $.each(data.users, function(i, item){    
+                //         addUser(item,"login"+i);
+                // });  
 
             });
         });

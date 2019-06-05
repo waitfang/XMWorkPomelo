@@ -32,6 +32,22 @@ ChatRemote.prototype.add = function(uid, sid, name, flag, cb) {
     cb(this.get(name, flag));
 };
 
+ChatRemote.prototype.getOnline = function(uid, sid, name, flag, cb) {
+    var channel = this.channelService.getChannel(name, flag);
+    var username = uid.split('*')[0];
+    var param = {
+        route: 'online',
+        user: username
+    };
+    channel.pushMessage(param);
+
+    if( !! channel) {
+        channel.add(uid, sid);
+    }
+
+    cb(this.get(name, flag));
+};
+
 /**
  * Get user from chat channel.
  *
@@ -43,6 +59,7 @@ ChatRemote.prototype.add = function(uid, sid, name, flag, cb) {
  */
 ChatRemote.prototype.get = function(name, flag) {
     var users = [];
+    console.log("name==="+name +"=flag="+flag);
     var channel = this.channelService.getChannel(name, flag);
     if( !! channel) {
         users = channel.getMembers();
