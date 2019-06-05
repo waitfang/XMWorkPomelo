@@ -14,7 +14,7 @@ var ChatRemote = function(app) {
  * @param {String} sid server id
  * @param {String} name channel name
  * @param {boolean} flag channel parameter
- *
+ *session, uid, self.app.get('serverId'), rid, true
  */
 ChatRemote.prototype.add = function(uid, sid, name, flag, cb) {
     var channel = this.channelService.getChannel(name, flag);
