@@ -1,8 +1,7 @@
 <script id="gameroom_tmpl" type="text/x-jquery-tmpl">  
-  {{each(i,val) data.users}}
-  <div class="room_user_c">  
-      <label  class="user_name">游戏ID：i ,${val}</label><br>  
-          <label  class="user_name">游戏ID：val</label><br>  
-  </div>  
-  {{/each}}
+  {{each(i,val) cardValueEnum}}
+    <div class="room_user_c">  
+            <img class="img1"  style="position:relative;z-index:'${i}';float:left;left:30px" src="image/pukeImage/bak.jpg">  
+    </div>  
+  {{/each}} 
 </script>
