@@ -42,9 +42,7 @@ handler.enter = function(msg, session, next) {
 					console.error('set rid for session service failed! error is : %j', err.stack);
 			}
 	});
-	session.on('closed', onUserLeave.bind(null, self.app));   
-	session.on('Online', Online.bind(null, self.app));
-	console.log("serverId=="+self.app.get('serverId'));
+	session.on('closed', onUserLeave.bind(null, self.app));  
 	//put user into channel
 	self.app.rpc.chat.chatRemote.add(session, uid, self.app.get('serverId'), rid, true, function(users){
 			next(null, {

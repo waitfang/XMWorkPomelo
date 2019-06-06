@@ -119,6 +119,8 @@ controleHidOrShow=function(objflag){
     $('#txtMessage').append('<span style="color:green;">[离线提醒]: ' + user + ' 离开聊天室<span><br/>'); 
     //从用户列表移除
     $('#selUserList option[value="' + user + '"]').remove();
+
+    $("#spUserOnlineCount").text($("#spUserOnlineCount").text()*1-1);    
   }
 
   //发送消息
