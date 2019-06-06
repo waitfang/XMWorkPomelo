@@ -11,12 +11,20 @@
     <meta name="author" content="netease" />
     <meta name="version" content="1.0" />
     <meta name="keywords" content="pomelo" />
+    <!-- <link rel="import" href="views/gameRoom.html" id="gameroom"> -->
+
+    <include src="views/gameRoom.html"></include>
+
     <link type="text/css" rel="stylesheet" href="css/base.css" />
     <script type="text/javascript" src="js/lib/socket.io.js"> </script>
     <script type="text/javascript" src="js/lib/pomeloclient.js"> </script>
     <script type="text/javascript" src="js/lib/jquery-2.2.2.min.js"> </script>
+    <script type="text/javascript" src="js/lib/jquery.json.min.js"> </script>
+    <script type="text/javascript" src="js/lib/jquery.tmpl.js"> </script>
     <script type="text/javascript" src="js/lib/connPomelo.js"></script>
+    <script type="text/javascript" src="enum/cardEnum.js"></script>
     <script type="text/javascript" src="js/html/index.js"></script>  
+    <script type="text/javascript" src="js/html/gameRoom.js"></script>
   </head>
   <body>
     <div class="g-doc">
@@ -39,7 +47,7 @@
         </div> 
         <div class="g-button" >
           <ul>
-              房间号： <input id="txtRoom" type="text" value="3001" > 
+              房间号： <input id="txtRoom" type="text" value="0" > 
           </ul>
           <ul>
             &nbsp&nbsp  账号： <input id="txtUserId" type="text" value="wait" >
@@ -50,9 +58,11 @@
         </div>
       </div>
       
-      <!---============================================================================-->
+      <!---====================================聊天室========================================-->
       <div id="pnlChat" style="display:none;">
-        <h1>2.聊天室   </h1>    
+        <h1>2.聊天室    
+          <input id="butGame" type="button" value="游戏页面"  />
+        </h1>    
         用户名：<span id="spUserName" style="color:blue;padding-right:50px;"></span>
         房间号：<span id="spRoomId" style="color:blue;padding-right:50px;"></span>    
         <div id="txtMessage" style="width:800px; height:400px;border:1px solid #000; overflow-y:auto; overflow-x:hidden; "></div>
@@ -66,7 +76,37 @@
                <input id="btnSend" type="button" value="发送" style="margin-left:10px; height:80px; width:100px;float:left;" />
                <input id="butLeave" type="button" value="返回"  style="margin-left:10px; height:80px; width:100px;float:left;"/>
         </div>
+
+        <!---====================================游戏页========================================-->
+        <div id="gamePlay" style="display:none">
+          <h1>2.游戏页面   </h1> 
+          公司名称：<span id="spUserCompanyName" style="color:blue;padding-right:50px;">0</span>
+          在线人数：<span id="spUserOnlineCount" style="color:blue;padding-right:50px;"></span>
+          会员额度：<span id="spUserAmt" style="color:blue;padding-right:50px;">0</span>
+          <div id="divBankGame" style="width:800px; height:450px;border:1px solid #000; overflow-y:auto; overflow-x:hidden; ">
+            <div id="CardBankList"></div>  
+          </div>
+        
+          <h1>  
+              <input id="btnSendCard" type="button" value="发牌" style="height:40px; width:100px;" />
+          </h1> 
+          <div id="divmyCard" style="width:800px; height:150px;border:1px solid rgb(70, 148, 103); overflow-y:auto; overflow-x:hidden; ">
+              <div id="divmyCardChild"></div>  
+            </div>
+        </div>
+        
         
     </div>
+ 
+
+    <script id="gameroom_tmpl2" type="text/x-jquery-tmpl">  
+      {{each(i,val) cardValueEnum}}
+        <div class="room_user_c">  
+                <img class="img1"  style="position:relative;z-index:'${i}';float:left;left:30px" src="image/pukeImage/bak.jpg">  
+        </div>  
+      {{/each}} 
+    </script>
+
+
   </body>
 </html>

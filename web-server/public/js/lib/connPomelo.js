@@ -1,9 +1,8 @@
- 
   var pomelo = window.pomelo;
   var host = "127.0.0.1";
   var port = "3010";//connector 服务器
-  port = "5150"; //gate 服务器
-  var params ={}; 
+  var port = "5150"; //gate 服务器
+  var params ={};   
 
   var pomeloinit = function(params){ 
     pomelo.init({
@@ -17,21 +16,21 @@
     });
   } 
 
-
-
   //server 路由
   var HandlerEnum = {
     gateHandler_queryEntry : "gate.gateHandler.queryEntry",
     connector_entryHandler_enter : "connector.entryHandler.enter" ,
     connector_onlineHandler: "connector.onlineHandler.online" ,
-    chatHandler_send : "chat.chatHandler.send"
+    chatHandler_send : "chat.chatHandler.send",
+    chatHandler_Useronline : "chat.chatHandler.Useronline"
   }
 
   //Page action
   var PageAction = {
     show:"show",
     Login:"ActionLogin",
-    GetOnline :"GetOnline"
+    GetOnline :"GetOnline",
+    game :"game"
   }
 
   //断开链接
@@ -53,7 +52,13 @@
 	pomelo.on('onAdd', function(data) {
 		var user = data.user; 
 		addUser(user,"onAdd");
-	});
+  });
+  
+  pomelo.on('online', function(data) {
+		var user = data.users; 
+		onlineUser(user,"online");
+  });
+  
 
 	//update user list
 	pomelo.on('onLeave', function(data) {
@@ -69,7 +74,7 @@
 
   
   //链接成功，呼叫回调函数
-  var queryEntry  = function(params, callback) {   
+  var queryEntry  = function(params, callback) {    
     pomelo.init({
       host: host,
       port: port,
@@ -82,21 +87,21 @@
         if(data.code === 500) {
           alert(data.msg);
           return;
-        }
+        } 
         callback(data.host, data.port);
       });
     });
   };
 
-
- var GetQueryString = function(name) {
+//获取参数
+var GetQueryString = function(name) {
     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
     if(r!=null)return  unescape(r[2]); return null;
 }
 
-
-  var getNowFormatDate = function () {
+//系统时间
+var getNowFormatDate = function () {
     var date = new Date();
     var seperator1 = "-";
     var seperator2 = ":";

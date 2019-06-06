@@ -1,35 +1,38 @@
 /**
- * 功能说明：
- */
+ * 功能说明：游戏相关，发牌，出牌，输赢。
+ */ 
+  
+ //初始化游戏页面
+ActionGame = function(){
+    controleHidOrShow(PageAction.game);
+    gameRoom.HandlerOnline();
 
-$(function(){
-    Action.online();
-
-})
-
-
-var Action = {
-    online :function(){ 
-        params.Action = PageAction.GetOnline;
-        params.route = HandlerEnum.gateHandler_queryEntry;
-        params.uid =GetQueryString("data");//没有选定房间，查所有在线人数。
-        params.rid =0; 
-        queryEntry(params,function(host,port){ 
-            pomelo.init({
-                host: host,
-                port: port,
-                log: true
-            }, function() {
-                params.route = HandlerEnum.connector_onlineHandler; 
-                pomelo.request(params.route, {
-                    username: params.uid,
-                    rid: params.rid
-                },function(data){
-                    alert(data.msg);
-                    });
-                }
-            ) 
-        })
+    gameRoom.GameBack(cardValueEnum);
+  }
+ 
+  
+var gameRoom = { 
+    //查在线人数，已经人员额度。。。
+    HandlerOnline:function(){ 
+        params.route = HandlerEnum.chatHandler_Useronline;//请求获取 connector 的ip，port 
+        pomelo.request(params.route, {
+            username: params.uid,
+            rid: params.rid
+        }, function(data) {  
+            onlineUser(data.users,"online"); 
+            // gameRoom.GameBack(data);
+        })  
     }
-}   
+    //显示牌局背面
+    ,GameBack:function(data){ 
+        $('#gameroom_tmpl2').tmpl(data).appendTo('#CardBankList');
+
+    }
+}
+
+
+ 
+onlineUser = function(user,flage){  
+    $("#spUserOnlineCount").text(user.length);    
+}
  

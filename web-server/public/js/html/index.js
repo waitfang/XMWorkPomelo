@@ -12,6 +12,10 @@ $(function(){
         ActionLogin();
     });
 
+    $("#butGame").click(function() {
+      ActionGame();
+    });
+
     $("#butLeave").click(function() {
       disconnect("#pnlLogin","#pnlChat");
     });
@@ -50,12 +54,12 @@ ActionLogin =function(){
     params.rid   =  $(objtxtRoom).val();
     params.uid   =  $(objtxtUserId).val();  // 用来请求获取 connector 的ip，port
     //query entry of connection
-    queryEntry(params, function(host, port) {  
+    queryEntry(params, function(host, port) {   
         pomelo.init({
             host: host,
             port: port,
             log: true
-        }, function() {
+        }, function() {  
             params.route = HandlerEnum.connector_entryHandler_enter;//请求获取 connector 的ip，port
             pomelo.request(params.route, {
                 username: params.uid,
@@ -65,41 +69,35 @@ ActionLogin =function(){
                     alert(data.error);
                     return;
                 }  
-                $('#pnlLogin').hide();
-                $('#pnlChat').show(); 
-                $('#spUserName').text(params.uid); //登陆账号和房间信息
-                $('#spRoomId').text(params.rid);
- 
-                window.location.href = 'views/gameRoom.html?data='+data.users
+                controleHidOrShow(PageAction.ActionLogin);
+                // window.location.href = 'views/gameRoom.html?uid='+params.uid+"&rid="+params.rid+"&port="+port;
                 //加载当前聊天室 已在线用户列表 
-                // $.each(data.users, function(i, item){    
-                //         addUser(item,"login"+i);
-                // });  
+                $.each(data.users, function(i, item){    
+                        addUser(item,"login"+i);
+                });  
 
             });
         });
     });
 }
 
-  //链接成功，呼叫回调函数
-  function queryEntry(params, callback) {  
-    pomelo.init({
-      host: host,
-      port: port,
-      log: true
-    }, function() {
-      pomelo.request(params.route, {
-        uid: params.uid
-      }, function(data) {
-        pomelo.disconnect();
-        if(data.code === 500) {
-          alert(data.msg);
-          return;
-        }
-        callback(data.host, data.port);
-      });
-    });
-  };
+
+controleHidOrShow=function(objflag){
+  switch(objflag){
+    case PageAction.ActionLogin:
+        $('#pnlLogin').hide();
+        $('#pnlChat').show(); 
+        $('#spUserName').text(params.uid); //登陆账号和房间信息
+        $('#spRoomId').text(params.rid); 
+        break;
+    case PageAction.game:
+        $('#gamePlay').show(); 
+        $('#pnlChat').hide(); 
+        break;
+
+  }
+}
+
  
   //user登入时，add 提醒，用户列表
   addUser = function(user,flage){ 

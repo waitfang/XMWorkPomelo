@@ -49,3 +49,29 @@ handler.send = function(msg, session, next) {
         route: msg.route
     });
 };
+
+
+handler.Useronline = function(msg,session,next){
+    var users = [];
+    var rid = session.get('rid');
+    var username = session.uid.split('@')[0];
+    var channelService  = this.app.get('channelService');
+    channel = channelService.getChannel(rid, false);
+    if( !! channel) {
+        users = channel.getMembers();
+    }
+    for(var i = 0; i < users.length; i++) {
+        users[i] = users[i].split('*')[0];
+    }
+    var param={
+        route:'online',
+        users :users
+    }
+    
+    console.log("users***************="+users);
+    channel.pushMessage(param);
+    next(null, {
+        route: msg.route,
+        users :users
+    });
+}
