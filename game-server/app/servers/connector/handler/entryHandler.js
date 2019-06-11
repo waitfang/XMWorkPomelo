@@ -1,5 +1,6 @@
 var UserInfo =require("../../dao/UserInfo"); 
 var Card = require('../../../util/Card'); 
+var Token = require('../../../util/Token');
 
 module.exports = function(app) {
   return new Handler(app);
@@ -23,6 +24,8 @@ handler.enter = function(msg, session, next) {
 	var rid = msg.rid;
 	var uid = msg.username + '*' + rid
 	var sessionService = self.app.get('sessionService');
+
+	Token.CreatToken(uid);//创建token；
 
 	//duplicate log in
 	if( !! sessionService.getByUid(uid)) {
