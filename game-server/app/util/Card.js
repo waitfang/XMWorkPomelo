@@ -14,22 +14,21 @@ exp.POKER_COLOR_LIST= function(){
     return Arrays.asList(cardEnum.cardEnum);
 } 
  
+//随机取52张牌，发给room的人。
 const  imagePath= 'image/pukeImage/';
 const  jpg= '.jpg';
+const  Cardslength = 5;//牛牛是每人5张牌，所以先写死5
 exp.getCard=function(){
     var Cards = [];
-    var j=0;
-    // var Poker = this.POKER_VALUE_LIST();
+    var j=0; 
     var Poker =cardEnum.cardArry; 
-    var cardCount = Poker.length;
-    //牛牛是每人5张牌，所以先写死5
+    var cardCount = Poker.length; 
     for(var i=0;i<cardCount;i++){
         var itemCards=  Math.ceil(Math.random()*cardCount) - 1;
         console.log('itemCards=='+itemCards);
         if(Cards.indexOf(itemCards) == -1)
             Cards[j] = imagePath + Poker[itemCards]+jpg;
-
-        if(Cards.length>=5) break;//满5张牌，跳出loop；  
+        if(Cards.length>=Cardslength) break;//满5张牌，跳出loop；  
         j++; 
     }
     return Cards; 

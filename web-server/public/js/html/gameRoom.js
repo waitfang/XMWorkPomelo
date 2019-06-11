@@ -32,9 +32,8 @@ var gameRoom = {
     ,
 } 
 
-
-AddRoom = {
-    HandlerAdd:function(){ 
+//进入房间，发牌。
+HandlerAddRoom =function(){   
     params ={};
     params.action= PageAction.Login;
     params.route  = HandlerEnum.gateHandler_queryEntry;   //  gate  route
@@ -46,27 +45,22 @@ AddRoom = {
             host: host,
             port: port,
             log: true
-        }, function() {  
+        }, function() {    
             params.route = HandlerEnum.connector_entryHandler_enterRoom;//请求获取 connector 的ip，port 
             pomelo.request(params.route, {
                 username: params.uid,
                 rid: params.rid
             }, function(data) { 
-                
-                controleHidOrShow(PageAction.game); 
                 if(data.error) {
-                    alert(data.error);
-                 
+                    alert(data.error); 
                 }   
                 $('#myCardChild').empty();;
-                $('#myGameRoom_tmpl').tmpl(data).appendTo('#myCardChild');
-                // $.each(data.Cards, function(i, item){    
-                //     alert(item+"login"+i);
-                // }); 
+                $('#myGameRoom_tmpl').tmpl(data).appendTo('#myCardChild'); 
+                controleHidOrShow(PageAction.game); 
+                return false;
             });
         });
-    });
-    }
+    }); 
 }
 
 //查在线人数。。。

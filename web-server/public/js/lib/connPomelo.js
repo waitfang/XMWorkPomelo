@@ -30,6 +30,7 @@
   var PageAction = {
     show:"show",
     Login:"ActionLogin",
+    index:"index",
     GetOnline :"GetOnline",
     game :"game"
   }

@@ -17,8 +17,8 @@ $(function(){
       ActionGame();
     });
     //进入特定房间
-    $("#btnSendCard").click(function(){
-      AddRoom.HandlerAdd();
+    $("#btnSendCard").click(function(){ 
+      HandlerAddRoom();   
     });
 
     $("#butLeave").click(function() {
@@ -27,7 +27,8 @@ $(function(){
 
     $("#btnSend").click(function(){
       sendUser();
-    })
+    });
+    controleHidOrShow(PageAction.index);
 })
 
 show = function(){
@@ -97,9 +98,15 @@ controleHidOrShow=function(objflag){
         break;
     case PageAction.game:
         $('#gamePlay').show(); 
+        $('#pnlLogin').hide();
         $('#pnlChat').hide(); 
+        // $('#pnlChat')[0].style.display = 'none';  
         break;
-
+    case PageAction.index:
+        $('#pnlLogin').show(); 
+        $('#pnlChat').hide(); 
+        $('#gamePlay').hide(); 
+      break;
   }
 }
 
