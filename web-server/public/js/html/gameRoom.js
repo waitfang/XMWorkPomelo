@@ -25,11 +25,8 @@ var gameRoom = {
     }
     //显示牌局背面
     ,GameBack:function(data){ 
-        $('#gameroom_tmpl2').tmpl(data).appendTo('#CardBankList');
-
-    }
-    //加入新的房间
-    ,
+        $('#gameroom_tmpl2').tmpl(data).appendTo('#CardBankList'); 
+    } 
 } 
 
 //进入房间，发牌。
@@ -39,28 +36,22 @@ HandlerAddRoom =function(){
     params.route  = HandlerEnum.gateHandler_queryEntry;   //  gate  route
     params.rid   =  $('#joinRoom').val();
     params.uid   =  $(objtxtUserId).val();  // 用来请求获取 connector 的ip，port 
-    //query entry of connection
-    queryEntry(params, function(host, port) {   
-        pomelo.init({
-            host: host,
-            port: port,
-            log: true
-        }, function() {    
-            params.route = HandlerEnum.connector_entryHandler_enterRoom;//请求获取 connector 的ip，port 
-            pomelo.request(params.route, {
-                username: params.uid,
-                rid: params.rid
-            }, function(data) { 
-                if(data.error) {
-                    alert(data.error); 
-                }   
-                $('#myCardChild').empty();;
-                $('#myGameRoom_tmpl').tmpl(data).appendTo('#myCardChild'); 
-                controleHidOrShow(PageAction.game); 
-                return false;
-            });
-        });
+    controleHidOrShow(PageAction.game); 
+    //query enterRoom of connection    
+    params.route = HandlerEnum.connector_entryHandler_enterRoom;//请求获取 connector 的ip，port 
+    pomelo.request(params.route, {
+        username: params.uid,
+        rid: params.rid
+    }, function(data) { 
+        if(data.error) {
+            alert(data.error); 
+        }   
+        $('#myCardChild').empty();;
+        $('#myGameRoom_tmpl').tmpl(data).appendTo('#myCardChild'); 
+        controleHidOrShow(PageAction.game); 
+        return false;
     }); 
+    return false;
 }
 
 //查在线人数。。。

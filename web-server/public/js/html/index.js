@@ -18,7 +18,7 @@ $(function(){
     });
     //进入特定房间
     $("#btnSendCard").click(function(){ 
-      HandlerAddRoom();   
+      return HandlerAddRoom();   
     });
 
     $("#butLeave").click(function() {
@@ -27,7 +27,8 @@ $(function(){
 
     $("#btnSend").click(function(){
       sendUser();
-    });
+    }); 
+    
     controleHidOrShow(PageAction.index);
 })
 
