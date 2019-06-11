@@ -20,6 +20,7 @@
   var HandlerEnum = {
     gateHandler_queryEntry : "gate.gateHandler.queryEntry",
     connector_entryHandler_enter : "connector.entryHandler.enter" ,
+    connector_entryHandler_enterRoom : "connector.entryHandler.enterRoom" ,
     connector_onlineHandler: "connector.onlineHandler.online" ,
     chatHandler_send : "chat.chatHandler.send",
     chatHandler_Useronline : "chat.chatHandler.Useronline"

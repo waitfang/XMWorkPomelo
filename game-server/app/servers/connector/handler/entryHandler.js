@@ -1,3 +1,6 @@
+var UserInfo =require("../../dao/UserInfo"); 
+var Card = require('../../../util/Card'); 
+
 module.exports = function(app) {
   return new Handler(app);
 };
@@ -5,10 +8,7 @@ module.exports = function(app) {
 var Handler = function(app) {
   this.app = app;
 };
- 
-var UserInfo =require("../../dao/UserInfo");
-var  mSessionService = require('../../../util/sessionService');
- 
+  
 var handler = Handler.prototype;
 /**
  * New client entry chat server.
@@ -49,16 +49,7 @@ handler.enter = function(msg, session, next) {
 					users:users
 			});
 	});
-};
- 
-
-var Online = function(app, session) {
-	if(!session || !session.uid) {
-			return;
-	}
-	app.rpc.chat.chatRemote.Online(session, session.uid, app.get('serverId'), session.get('rid'), null);
-};
-
+}; 
 
 /**
 * User log out handler
@@ -72,4 +63,49 @@ var onUserLeave = function(app, session) {
 			return;
 	}
 	app.rpc.chat.chatRemote.kick(session, session.uid, app.get('serverId'), session.get('rid'), null);
+};
+
+
+//进入新房间，带发牌
+handler.enterRoom = function(msg, session, next) {
+	var self = this;
+	var rid = msg.rid;
+	var uid = msg.username + '*' + rid
+	var sessionService = self.app.get('sessionService');
+
+	//duplicate log in
+	if( !! sessionService.getByUid(uid)) {
+		getCard(next);//人员存在，重新发牌就可以了
+		return;
+	}
+
+	UserInfo.UserInfo({USERNAME: msg.username});//测试DB Conn
+
+	session.bind(uid);
+	session.set('ridRoom', rid);
+	session.push('ridRoom', function(err) {
+			if(err) {
+					console.error('set rid for session service failed! error is : %j', err.stack);
+			}
+	});
+	session.on('closed', onUserLeaveRoom.bind(null, self.app));  
+	//put user into channel
+	self.app.rpc.chat.chatRemote.AddRoom(session, uid, self.app.get('serverId'), rid, true,getCard(next));
+};
+
+
+var onUserLeaveRoom = function(app, session) {
+	if(!session || !session.uid) {
+			return;
+	}
+	app.rpc.chat.chatRemote.kick(session, session.uid, app.get('serverId'), session.get('ridRoom'), null);
+};
+
+//返回发的牌 
+var getCard = function(next) {
+	var Cards =Card.getCard();
+	console.log("Cards=="+Cards);
+		next(null, {
+			Cards:Cards
+		});
 };

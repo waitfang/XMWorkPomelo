@@ -1,17 +1,39 @@
- import { Module } from "module";
- import {cardEnum} from '../enum/cardEnum';
-
+ 
+ var cardEnum = require('../enum/cardEnum');
+ var exp = module.exports;
  /**
   * 功能说明：定义扑克牌数。除去大小王，牛牛不需要大小王的。
   */
 
- module.exports.Card= {
-    POKER_VALUE_LIST : function(){
+ exp.POKER_VALUE_LIST =function(){
         return Arrays.asList(cardEnum.cardValueEnum);
-    }, 
-    POKER_COLOR_LIST: function(){
-        return Arrays.asList(cardEnum.cardEnum);
-    } 
- } 
+        // return Arrays.asList('1','2','3','4');
+    };
+
+exp.POKER_COLOR_LIST= function(){
+    return Arrays.asList(cardEnum.cardEnum);
+} 
+ 
+const  imagePath= 'image/pukeImage/';
+const  jpg= '.jpg';
+exp.getCard=function(){
+    var Cards = [];
+    var j=0;
+    // var Poker = this.POKER_VALUE_LIST();
+    var Poker =cardEnum.cardArry; 
+    var cardCount = Poker.length;
+    //牛牛是每人5张牌，所以先写死5
+    for(var i=0;i<cardCount;i++){
+        var itemCards=  Math.ceil(Math.random()*cardCount) - 1;
+        console.log('itemCards=='+itemCards);
+        if(Cards.indexOf(itemCards) == -1)
+            Cards[j] = imagePath + Poker[itemCards]+jpg;
+
+        if(Cards.length>=5) break;//满5张牌，跳出loop；  
+        j++; 
+    }
+    return Cards; 
+}
+
 
  

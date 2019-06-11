@@ -31,6 +31,44 @@ ChatRemote.prototype.add = function(uid, sid, name, flag, cb) {
 
     cb(this.get(name, flag));
 };
+
+//加入新房间
+ChatRemote.prototype.AddRoom = function(uid, sid, name, flag, cb) {
+    var channel = this.channelService.getChannel(name, flag);
+    var username = uid.split('*')[0];
+    var param = {
+        route: 'onAddRoom',
+        user: username,
+        card: Arrays.asList({bak:'bak.jpg'})
+    };
+    channel.pushMessage(param);
+
+    if( !! channel) {
+        channel.add(uid, sid);
+    }
+    cb();
+    // cb(this.getCard());
+};
+
+//随机获取5张牌
+ChatRemote.prototype.getCard = function() {
+    var Cards = [];
+    var cardCount = 52;
+    var j=0;
+    //牛牛是每人5张牌，所以先写死5
+    for(var i=0;i<cardCount;i++){
+        var itemCards=  Math.ceil(Math.random()*cardCount);
+        var Poker = Card.POKER_VALUE_LIST()[i];
+        if(!Cards.concat(Poker))
+            Cards[j] = itemCards;
+
+        if(Cards[j].length>=5) break;//满5张牌，跳出loop；  
+        j++; 
+    }
+    return Cards; 
+};
+
+
  
 /**
  * Get user from chat channel.

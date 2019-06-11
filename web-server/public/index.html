@@ -100,7 +100,8 @@
 
         <!-- 我的列表 -->
         <div id="divmyCard" style="width:800px; height:150px;border:1px solid rgb(70, 148, 103); overflow-y:auto; overflow-x:hidden; ">
-            <div id="myCardChild"></div>  
+          <div id="CardChild"></div>   
+          <div id="myCardChild"></div>  
         </div>
       </div> 
 
@@ -109,6 +110,7 @@
    
     <script> 
       $("#CardBankList").load("views/gameRoom.html"); //加载模板列-发牌前的背景列表
+      $("#CardChild").load("views/addRoom.html"); //加载模板列-my list
     </script>
   </body>
 </html>

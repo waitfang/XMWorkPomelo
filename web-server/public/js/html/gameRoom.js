@@ -28,10 +28,48 @@ var gameRoom = {
         $('#gameroom_tmpl2').tmpl(data).appendTo('#CardBankList');
 
     }
+    //加入新的房间
+    ,
+} 
+
+
+AddRoom = {
+    HandlerAdd:function(){ 
+    params ={};
+    params.action= PageAction.Login;
+    params.route  = HandlerEnum.gateHandler_queryEntry;   //  gate  route
+    params.rid   =  $('#joinRoom').val();
+    params.uid   =  $(objtxtUserId).val();  // 用来请求获取 connector 的ip，port 
+    //query entry of connection
+    queryEntry(params, function(host, port) {   
+        pomelo.init({
+            host: host,
+            port: port,
+            log: true
+        }, function() {  
+            params.route = HandlerEnum.connector_entryHandler_enterRoom;//请求获取 connector 的ip，port 
+            pomelo.request(params.route, {
+                username: params.uid,
+                rid: params.rid
+            }, function(data) { 
+                
+                controleHidOrShow(PageAction.game); 
+                if(data.error) {
+                    alert(data.error);
+                 
+                }   
+                $('#myCardChild').empty();;
+                $('#myGameRoom_tmpl').tmpl(data).appendTo('#myCardChild');
+                // $.each(data.Cards, function(i, item){    
+                //     alert(item+"login"+i);
+                // }); 
+            });
+        });
+    });
+    }
 }
 
-
- 
+//查在线人数。。。
 onlineUser = function(user,flage){  
     $("#spUserOnlineCount").text(user.length);    
 }

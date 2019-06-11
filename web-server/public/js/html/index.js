@@ -12,8 +12,13 @@ $(function(){
         ActionLogin();
     });
 
+    //初始化游戏页面
     $("#butGame").click(function() {
       ActionGame();
+    });
+    //进入特定房间
+    $("#btnSendCard").click(function(){
+      AddRoom.HandlerAdd();
     });
 
     $("#butLeave").click(function() {
